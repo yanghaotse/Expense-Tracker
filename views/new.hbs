@@ -1,0 +1,53 @@
+<div class="container" style="text-align:center" mt-5>
+  <div id="title-div">
+    <span>*必填欄位</span>
+    <h2 class="text-center" style="display:inline">請輸入你的支出</h2>
+  </div>
+  
+  <form action="/record/new" method="POST" style="text-align:center">
+    
+    <div class="row g-4 align-items-center mt-3">
+      <div class="col-auto">
+        <label for="name" class="form-label">名稱* :</label>
+      </div>
+      <div class="col-auto">
+        <input type="text" name="name" id="name" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="row g-4 align-items-center mt-3">
+      <div class="col-auto">
+        <label for="date" class="form-label">日期* :</label>
+      </div>
+      <div class="col-auto">
+        <input type="date" name="date" id="date" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="row g-4 align-items-center mt-3">
+      <div class="col-auto">
+        <label for="category" class="form-label">類別* :</label>
+      </div>
+      <div class="col-auto">
+        <select class="form-select" aria-label="Default select example" name="category" id="category">
+          <option selected>Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row g-4 align-items-center mt-3">
+      <div class="col-auto">
+        <label for="amount" class="form-label">金額* :</label>
+      </div>
+      <div class="col-auto">
+        <input type="text" name="amount" id="amount" class="form-control" required>
+      </div>
+    </div>
+
+    <button class="btn btn-primary mt-5">新增支出</button>
+
+  </form>
+</div>

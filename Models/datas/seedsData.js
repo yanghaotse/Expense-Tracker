@@ -46,15 +46,15 @@ const SEED_RECORD=[
 const SEED_CATEGORY = [
   {
     name: "家居物業",
-    icon:"https://fontawesome.com/icons/home?style=solid"
+    icon:"fa-solid fa-house"
   },
   {
     name: '交通出行',
-    icon:"https://fontawesome.com/icons/shuttle-van?style=solid"
+    icon:"fa-solid fa-van-shuttle"
   },
   {
     name:'休閒娛樂',
-    icon: "https://fontawesome.com/icons/grin-beam?style=solid"
+    icon: "fa-solid fa-gamepad"
   },
   {
     name: '餐飲食品',
@@ -62,7 +62,7 @@ const SEED_CATEGORY = [
   },
   {
     name: '其他',
-    icon: "https://fontawesome.com/icons/pen?style=solid"
+    icon: "fa-solid fa-utensils"
   }
 
 ]

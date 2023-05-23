@@ -1,12 +1,13 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
+const RecordModel = require('./models/record')
 
 const app = express()
 const port = 3000
 
 //express-handlebars
-app.engine('hbs', exphbs({ defaultLayout : 'main', extname: '.hbs'}))
+app.engine('hbs', exphbs({ defaultLayout : 'main', extname: '.hbs', useUnifiedTopology: true}))
 app.set('view engine', 'hbs') 
 
 // body-parser
@@ -26,11 +27,26 @@ db.once('open', () => {
   console.log('mongoDB connected!')
 })
 
+app.use(express.static('public'))
 
 
 app.get('/', (req, res) => {
   res.render('index')
 })
+
+
+app.get('/record/new',(req, res) => {
+  res.render('new')
+})
+
+app.get('/record/edit',(req, res) => {
+  res.render('edit')
+})
+
+// app.post('/record/new', (req, res) => {
+//   const {name, date, category, amount} = req.body
+// })
+
 
 app.listen( port, () => {
   console.log(`App is running on http://localhost:${port}`)
