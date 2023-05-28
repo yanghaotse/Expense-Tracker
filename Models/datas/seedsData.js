@@ -58,7 +58,7 @@ const SEED_CATEGORY = [
   },
   {
     name: '餐飲食品',
-    icon: "https://fontawesome.com/icons/utensils?style=solid"
+    icon: "fa-solid fa-utensils"
   },
   {
     name: '其他',

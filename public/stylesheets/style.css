@@ -1,15 +1,26 @@
-.container{
-
-}
-.form-select{
+.index-container{
+  margin: 100px auto 0;
   width: 800px;
+  text-align: center;
+  padding: 30px;
 }
+
+
+#sort-form{
+  display: flex;
+  justify-content: center;
+}
+
+.form-select{
+  width: 600px;
+}
+
 .total-container{
-  margin-top: 50px;
+  margin: 50px auto 0;
   display:flex;
   height: 100px;
-  width: 800px;
-  justify-content: space-between;
+  width: 600px;
+  justify-content: center;
 }
 
 #total-text{
@@ -23,7 +34,28 @@
   font-size:500%;
 }
 
-/* .list-group{
+.record-container{
+  margin-top: 100px;
   display:flex;
-  
-} */
+  width: 800px;
+  justify-content: space-around;
+}
+
+.title-div{
+  display:flex;
+  width: 80%;
+  justify-content: space-around;
+}
+
+.edit-div{
+  margin: auto 0;
+}
+
+i{
+  font-size: 50px;
+}
+
+#amount{
+  margin: auto 0;
+}
+
