@@ -49,7 +49,7 @@ app.get('/',async (req, res) => {
         icon: record.categoryId.icon
       }
     })
-    console.log(data)
+    // console.log(data) //檢查用
     res.render('index', {records: data})
   }catch(err){
     console.log(err)
@@ -67,12 +67,14 @@ app.get('/record/edit',(req, res) => {
 
 app.post('/record/new', async(req, res) => {
   const {name, date, category, amount} = req.body
+  // console.log(name,date, category, amount) //檢查用
+  const categoryData = await CategoryModel.findOne( {name: category}).lean()
   try{
     await RecordModel.create({
       name,
       date,
-      category,
-      amount
+      amount,
+      categoryId: categoryData._id
     })
     res.redirect('/')
   }catch(err){

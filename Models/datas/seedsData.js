@@ -62,7 +62,7 @@ const SEED_CATEGORY = [
   },
   {
     name: '其他',
-    icon: "fa-solid fa-utensils"
+    icon: "fa-solid fa-pen"
   }
 
 ]
