@@ -1,102 +1,64 @@
-{{!-- <div class="container" style="text-align:center" mt-5>
-  <div id="title-div">
-    <span>*必填欄位</span>
-    <h2 class="text-center" style="display:inline">請輸入你的支出</h2>
-  </div>
-
-  <form action="/record/edit" method="POST" style="text-align:center">
-
-    <div class="row g-4 align-items-center mt-3">
-      <div class="col-auto">
-        <label for="name" class="form-label">名稱* :</label>
-      </div>
-      <div class="col-auto">
-        <input type="text" name="name" id="name" class="form-control" value="#" required>
-      </div>
-    </div>
-
-    <div class="row g-4 align-items-center mt-3">
-      <div class="col-auto">
-        <label for="date" class="form-label">日期* :</label>
-      </div>
-      <div class="col-auto">
-        <input type="date" name="date" id="date" class="form-control" value="#" required>
-      </div>
-    </div>
-
-    <div class="row g-4 align-items-center mt-3">
-      <div class="col-auto">
-        <label for="category" class="form-label">類別* :</label>
-      </div>
-      <div class="col-auto">
-        <select class="form-select" aria-label="Default select example" name="category" id="category" value="#">
-          <option selected>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="row g-4 align-items-center mt-3">
-      <div class="col-auto">
-        <label for="amount" class="form-label">金額* :</label>
-      </div>
-      <div class="col-auto">
-        <input type="text" name="amount" id="amount" class="form-control" value="#" required>
-      </div>
-    </div>
-
-    <button class="btn btn-primary mt-5">送出</button>
-
-  </form>
-</div> --}}
-
-
-
-
-
-
-
-<div class="container" style="text-align:center" mt-5>
-  <div class="row mt-5">
-    <div class="col-md-6 m-auto">
-      {{!-- <div class="card card-body"> --}}
-        <span>*必填欄位</span>
-        <h2 class="text-center" style="display:inline">請輸入你的支出</h2>
-        {{!-- 只要看到大於符號 >，Handlebars 就會去 partials 資料夾下尋找符合名稱的樣版 --}}
-        {{!-- {{> message}} --}}
-        <form action="/record/new" method="POST">
-          <div class="mb-3">
+<div class="edit-container">
+  <form action="/record/edit" method="POST">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2">
+            <h2>請修改你的支出</h2>
+          </th>
+        </tr>
+        <tr>
+          <td>*必填欄位</td>
+        </tr>
+      </thead>
+      <tbody>
+    
+        <tr class="mt-3">
+          <td>
             <label for="name">名稱* :</label>
+          </td>
+          <td>
             <input type="text" id="name" name="name" class="form-control" value="#" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="date" class="mb-2">日期* :</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="date">日期* :</label>
+          </td>
+          <td>
             <input type="date" id="date" name="date" class="form-control" value="#">
-          </div>
-
-          <div class="mb-3">
-            <label for="category" class="mb-2">類別* :</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="category">類別* :</label>
+          </td>
+          <td>
             <select class="form-select" aria-label="Default select example" name="category" id="category" value="#">
               <option selected>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <option>家居物業</option>
+              <option>交通出行</option>
+              <option>休閒娛樂</option>
+              <option>餐飲食品</option>
+              <option>其他</option>
             </select>
-          </div>
-
-          <div class="mb-3">
-            <label for="amount" class="mb-2">Confirm Password</label>
-            <input type="text" id="amount" name="amount" class="form-control"
-            value="#">
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-block" style="width:100%">送出</button>
-       
-        </form>
-      {{!-- </div> --}}
-    </div>
-  </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="amount">金額* :</label>
+          </td>
+          <td>
+            <input type="text" id="amount" name="amount" class="form-control" value="#">
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <button type="submit" class="btn btn-primary btn-block" id="edit-button">送出</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
 </div>

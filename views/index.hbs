@@ -10,13 +10,13 @@
     </select>
   </form>
 
-  <div class="total-container">
+  <div class="total-div">
     <div id="total-text"><span>總金額:</span></div>
     <div id="total-number">25260</div>
   </div>
   {{#each records}}
-    <div class="record-container">
-      <div class="title-div">
+    <div class="record-div">
+      <div class="title">
         <div style="display:flex">
           <i class="{{this.icon}}"></i>
           <div class="ms-3">
@@ -26,7 +26,7 @@
         </div>
         <p class="ms-3" id="amount">{{this.amount}}</p>
       </div>
-      <div class="edit-div ms-5">
+      <div class="button-div ms-5">
         <a href="/record/edit">修改</a>
         <a href="/record/delete">刪除</a>
       </div>

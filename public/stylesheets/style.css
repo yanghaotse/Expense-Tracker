@@ -1,3 +1,8 @@
+/* body {
+  min-height: 100vh;
+} */
+
+/* index.hbs */
 .index-container{
   margin: 100px auto 0;
   width: 800px;
@@ -15,7 +20,7 @@
   width: 600px;
 }
 
-.total-container{
+.total-div{
   margin: 50px auto 0;
   display:flex;
   height: 100px;
@@ -34,20 +39,20 @@
   font-size:500%;
 }
 
-.record-container{
+.record-div{
   margin-top: 100px;
   display:flex;
   width: 800px;
   justify-content: space-around;
 }
 
-.title-div{
+.title{
   display:flex;
   width: 80%;
   justify-content: space-around;
 }
 
-.edit-div{
+.button-div{
   margin: auto 0;
 }
 
@@ -59,3 +64,22 @@ i{
   margin: auto 0;
 }
 
+
+
+/*new.hbs  edit.hbs */
+
+.new-container, .edit-container{
+  height: 800px;
+  margin:0 auto;
+  text-align: center;
+}
+
+table{
+  margin: 10% auto;
+  border-collapse: separate;
+  border-spacing: 50px;
+}
+
+#new-button, #edit-button{
+  width: 100%;
+}

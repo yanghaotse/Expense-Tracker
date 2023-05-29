@@ -1,4 +1,70 @@
-<div class="container" style="text-align:center" mt-5>
+<div class="new-container">
+  <form action="/record/new" method="POST">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2">
+            <h2>請新增你的支出</h2>
+          </th>
+        </tr>
+        <tr>
+          <td>*必填欄位</td>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="mt-3">
+          <td>
+            <label for="name">名稱* :</label>
+          </td>
+          <td>
+            <input type="text" id="name" name="name" class="form-control" required>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="date">日期* :</label>
+          </td>
+          <td>
+            <input type="date" id="date" name="date" class="form-control" required>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="category">類別* :</label>
+          </td>
+          <td>
+            <select class="form-select" aria-label="Default select example" name="category" id="category" required>
+              <option selected>Open this select menu</option>
+              <option>家居物業</option>
+              <option>交通出行</option>
+              <option>休閒娛樂</option>
+              <option>餐飲食品</option>
+              <option>其他</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="amount">金額* :</label>
+          </td>
+          <td>
+            <input type="text" id="amount" name="amount" class="form-control" required>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <button type="submit" class="btn btn-primary btn-block" id="new-button">新增支出</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+
+
+{{!-- <div class="container new-container" style="text-align:center">
   <div id="title-div">
     <span>*必填欄位</span>
     <h2 class="text-center" style="display:inline">請輸入你的支出</h2>
@@ -52,4 +118,4 @@
     <button class="btn btn-primary mt-5">新增支出</button>
 
   </form>
-</div>
+</div> --}}
