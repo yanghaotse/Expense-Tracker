@@ -1,5 +1,5 @@
 <div class="edit-container">
-  <form action="/record/edit" method="POST">
+  <form action="/records/edit/{{record._id}}" method="POST">
     <table>
       <thead>
         <tr>
@@ -18,7 +18,7 @@
             <label for="name">名稱* :</label>
           </td>
           <td>
-            <input type="text" id="name" name="name" class="form-control" value="#" required>
+            <input type="text" id="name" name="name" class="form-control" value="{{record.name}}" required>
           </td>
         </tr>
         <tr>
@@ -26,7 +26,7 @@
             <label for="date">日期* :</label>
           </td>
           <td>
-            <input type="date" id="date" name="date" class="form-control" value="#">
+            <input type="date" id="date" name="date" class="form-control" value="{{record.date}}">
           </td>
         </tr>
         <tr>
@@ -34,8 +34,8 @@
             <label for="category">類別* :</label>
           </td>
           <td>
-            <select class="form-select" aria-label="Default select example" name="category" id="category" value="#">
-              <option selected>Open this select menu</option>
+            <select class="form-select" aria-label="Default select example" name="category" id="category">
+              <option selected>{{record.categoryId.name}}</option>
               <option>家居物業</option>
               <option>交通出行</option>
               <option>休閒娛樂</option>
@@ -49,7 +49,7 @@
             <label for="amount">金額* :</label>
           </td>
           <td>
-            <input type="text" id="amount" name="amount" class="form-control" value="#">
+            <input type="text" id="amount" name="amount" class="form-control" value="{{record.amount}}">
           </td>
         </tr>
         <tr>

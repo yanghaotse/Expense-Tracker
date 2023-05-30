@@ -36,13 +36,14 @@ app.use(express.static('public'))
 
 
 
-
-app.get('/',async (req, res) => {
+// 首頁
+app.get('/', async (req, res) => {
   try{
     const records = await RecordModel.find().populate('categoryId').lean()
     const data = records.map(record => {
-      const {name, date, amount} = record
+      const {_id, name, date, amount} = record
       return{
+        _id,
         name,
         date,
         amount,
@@ -57,15 +58,48 @@ app.get('/',async (req, res) => {
 })
 
 
-app.get('/record/new',(req, res) => {
+app.get('/records/new',(req, res) => {
   res.render('new')
 })
 
-app.get('/record/edit',(req, res) => {
-  res.render('edit')
+//編輯一筆資料GET
+app.get('/records/edit/:_id',async (req, res) => {
+  const _id = req.params._id
+  // console.log(id) //檢查用
+  try{
+    const record = await RecordModel.findOne({ _id }).populate('categoryId').lean()
+    res.render('edit', { record })
+    // console.log(records.categoryId.name)
+  }catch(err){
+    console.log(err)
+  }
 })
 
-app.post('/record/new', async(req, res) => {
+
+// 編輯一筆資料POST
+app.post('/records/edit/:_id', async(req, res) => {
+  const _id = req.params._id
+  const  {name, date, category, amount} = req.body
+  try{
+    // 抓取RecordModel資料若後面有家lean()，之後在儲存資料.save()時會因為資料格式問題無法儲存
+    // const record = await RecordModel.findOne({ _id }).lean()
+    const categoryData = await CategoryModel.findOne({ name : category}).lean()
+    const record = {
+      name,
+      date,
+      amount,
+      categoryId: categoryData._id
+    }
+    
+    await RecordModel.updateOne({ _id }, { $set: record})
+    res.redirect('/')
+  }catch(err){
+    console.log(err)
+  }
+})
+
+// 新增一筆資料
+app.post('/records/new', async(req, res) => {
   const {name, date, category, amount} = req.body
   // console.log(name,date, category, amount) //檢查用
   const categoryData = await CategoryModel.findOne( {name: category}).lean()

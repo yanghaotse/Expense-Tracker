@@ -27,13 +27,13 @@
         <p class="ms-3" id="amount">{{this.amount}}</p>
       </div>
       <div class="button-div ms-5">
-        <a href="/record/edit">修改</a>
-        <a href="/record/delete">刪除</a>
+        <a href="/records/edit/{{this._id}}">修改</a>
+        <a href="/records/delete/{{this._id}}">刪除</a>
       </div>
     </div>
   {{/each}}
   
-  <a class="btn btn-primary mt-5" href="/record/new" id="new-button">新增支出</a>
+  <a class="btn btn-primary mt-5" href="/records/new" id="new-button">新增支出</a>
 </div>
 
   
