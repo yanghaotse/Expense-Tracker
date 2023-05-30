@@ -50,6 +50,8 @@
 
 .button-div{
   margin: auto 0;
+  display: flex;
+  width:20%;
 }
 
 i{

@@ -12,7 +12,7 @@
 
   <div class="total-div">
     <div id="total-text"><span>總金額:</span></div>
-    <div id="total-number">25260</div>
+    <div id="total-number">{{totalCost}}</div>
   </div>
   {{#each records}}
     <div class="record-div">
@@ -27,8 +27,10 @@
         <p class="ms-3" id="amount">{{this.amount}}</p>
       </div>
       <div class="button-div ms-5">
-        <a href="/records/edit/{{this._id}}">修改</a>
-        <a href="/records/delete/{{this._id}}">刪除</a>
+        <a href="/records/edit/{{this._id}}" class="btn btn-primary">修改</a>
+        <form action="/records/delete/{{this._id}}" method="POST" class="ms-3">  
+          <button type="submit" class="btn btn-primary">刪除</button>
+        </form>
       </div>
     </div>
   {{/each}}
