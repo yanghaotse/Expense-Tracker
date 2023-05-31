@@ -43,12 +43,13 @@ app.get('/', async (req, res) => {
     const records = await RecordModel.find().populate('categoryId').lean()
     const data = records.map(record => {
       const {_id, name, date, amount} = record
-      const formatDate = moment.utc(date).format('YYYY/MM/DD')
-      console.log(date)//output:2019-04-22T16:00:00.000Z
+      // console.log(date) //檢查用
+      //output:
+      // 2019-04-22T16:00:00.000Z
       // 2019-04-22T16:00:00.000Z
       // 2019-04-22T16:00:00.000Z
       // 2015-03-31T16:00:00.000Z
-
+      const formatDate = moment.utc(date).format('YYYY/MM/DD')
       return{
         _id,
         name,
@@ -82,7 +83,9 @@ app.get('/records/edit/:_id',async (req, res) => {
   // console.log(id) //檢查用
   try{
     const record = await RecordModel.findOne({ _id }).populate('categoryId').lean()
-    const formatDate = new Date(record.date).toISOString().slice(0, 10)
+    const formatDate = moment.utc(record.date).format('YYYY-MM-DD') // 若設定為YYYY/MM/DD也會無法轉換
+    // console.log(record.date, formatDate) 檢查用
+
     res.render('edit', { record, formatDate })
     // console.log(records.categoryId.name)
   }catch(err){
@@ -97,7 +100,7 @@ app.post('/records/edit/:_id', async(req, res) => {
   const  {name, date, category, amount} = req.body
   try{
     // const record = await RecordModel.findOne({ _id }).lean()
-    // 抓取RecordModel資料若後面有家lean()，之後用.save()儲存資料時會因為資料格式問題無法儲存，改用.updateOne
+    // 抓取RecordModel資料若後面有家lean()，之後用.save()儲存資料時會因為資料格式問題無法儲存，故改用.updateOne
     const categoryData = await CategoryModel.findOne({ name : category}).lean()
     const record = {
       name,
@@ -149,9 +152,11 @@ app.listen( port, () => {
 
 
 
-      // date轉換格式為: YYYY/MM/DD
-      // const formatDate = new Date(date).toLocaleDateString('zh-TW', {
-      //   year: 'numeric',
-      //   month: '2-digit',
-      //   day: '2-digit'
-      // })
+// 問題紀錄
+// 在首頁路由中 轉換date格式為:" YYYY/MM/DD"，原本格式: "2019-04-22T16:00:00.000Z"
+// 使用javascript語法，問題: 顯示的日期比資料日期多一天
+// const formatDate = new Date(date).toLocaleDateString('zh-TW', {
+//   year: 'numeric',
+//   month: '2-digit',
+//   day: '2-digit'
+// })
