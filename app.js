@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const RecordModel = require('./models/record')
 const CategoryModel = require('./models/category')
 const moment = require('moment')
+const methodOverride = require('method-override')
 // const {authenticator} = require('./middleware/auth')
 
 const app = express()
@@ -34,7 +35,7 @@ db.once('open', () => {
 })
 
 app.use(express.static('public'))
-
+app.use(methodOverride('_method'))
 
 
 // 首頁
@@ -95,7 +96,7 @@ app.get('/records/edit/:_id',async (req, res) => {
 
 
 // route: POST/edit
-app.post('/records/edit/:_id', async(req, res) => {
+app.put('/records/edit/:_id', async(req, res) => {
   const _id = req.params._id
   const  {name, date, category, amount} = req.body
   try{
@@ -135,7 +136,7 @@ app.post('/records/new', async(req, res) => {
 })
 
 // route: POST/delete
-app.post('/records/delete/:_id', async(req, res) => {
+app.delete('/records/delete/:_id', async(req, res) => {
   const _id = req.params._id
   try{
     await RecordModel.findByIdAndDelete(_id)
