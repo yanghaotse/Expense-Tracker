@@ -1,6 +1,6 @@
 /* index.hbs */
 .index-container{
-  margin: 100px auto 0;
+  margin: 50px auto 0;
   width: 800px;
   text-align: center;
   padding: 30px;
@@ -71,11 +71,18 @@ i{
 }
 
 table{
-  margin: 10% auto;
+  margin: 5% auto;
   border-collapse: separate;
   border-spacing: 50px;
 }
 
-#new-button, #edit-button{
+#new-button, #send-button{
   width: 100%;
+}
+/* .button-td{
+  width: 100px;
+} */
+
+#edit-button, #delete{
+  width: 60px;
 }

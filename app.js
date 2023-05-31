@@ -56,14 +56,14 @@ app.get('/', async (req, res) => {
         icon: record.categoryId.icon
       }
     })
+    // console.log(data) //檢查用
+
     // 計算總金額
     const totalCost = data.reduce(((accumulator, item) => {
       return accumulator + item.amount
     }), 0)
+    // console.log(totalCost) 檢查用
     
-    
-    console.log(totalCost)
-    // console.log(data) //檢查用
     res.render('index', { records: data , totalCost})
   }catch(err){
     console.log(err)
@@ -81,7 +81,8 @@ app.get('/records/edit/:_id',async (req, res) => {
   // console.log(id) //檢查用
   try{
     const record = await RecordModel.findOne({ _id }).populate('categoryId').lean()
-    res.render('edit', { record })
+    const formatDate = new Date(record.date).toISOString().slice(0, 10)
+    res.render('edit', { record, formatDate })
     // console.log(records.categoryId.name)
   }catch(err){
     console.log(err)
@@ -129,6 +130,7 @@ app.post('/records/new', async(req, res) => {
   }
 })
 
+// route: POST/delete
 app.post('/records/delete/:_id', async(req, res) => {
   const _id = req.params._id
   try{
