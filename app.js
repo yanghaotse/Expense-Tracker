@@ -3,6 +3,7 @@ const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const RecordModel = require('./models/record')
 const CategoryModel = require('./models/category')
+const moment = require('moment')
 // const {authenticator} = require('./middleware/auth')
 
 const app = express()
@@ -42,12 +43,12 @@ app.get('/', async (req, res) => {
     const records = await RecordModel.find().populate('categoryId').lean()
     const data = records.map(record => {
       const {_id, name, date, amount} = record
-      // date轉換格式為: YYYY/MM/DD
-      const formatDate = new Date(date).toLocaleDateString('zh-TW', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      })
+      const formatDate = moment.utc(date).format('YYYY/MM/DD')
+      console.log(date)//output:2019-04-22T16:00:00.000Z
+      // 2019-04-22T16:00:00.000Z
+      // 2019-04-22T16:00:00.000Z
+      // 2015-03-31T16:00:00.000Z
+
       return{
         _id,
         name,
@@ -145,3 +146,12 @@ app.post('/records/delete/:_id', async(req, res) => {
 app.listen( port, () => {
   console.log(`App is running on http://localhost:${port}`)
 })
+
+
+
+      // date轉換格式為: YYYY/MM/DD
+      // const formatDate = new Date(date).toLocaleDateString('zh-TW', {
+      //   year: 'numeric',
+      //   month: '2-digit',
+      //   day: '2-digit'
+      // })
