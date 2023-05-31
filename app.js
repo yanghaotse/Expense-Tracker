@@ -62,12 +62,12 @@ app.get('/', async (req, res) => {
     // console.log(data) //檢查用
 
     // 計算總金額
-    const totalCost = data.reduce(((accumulator, item) => {
+    const totalAmount = data.reduce(((accumulator, item) => {
       return accumulator + item.amount
     }), 0)
-    // console.log(totalCost) 檢查用
+    // console.log(totalAmount) 檢查用
     
-    res.render('index', { records: data , totalCost})
+    res.render('index', { records: data , totalAmount})
   }catch(err){
     console.log(err)
   }
