@@ -1,0 +1,50 @@
+<div class="container index-container">
+  <form action="/records/sort" id="sort-form" method="GET">
+    <select class="form-select" aria-label="Default select example" name="sort" id="sort-select">
+      <option selected disabled value="">{{sort}}</option>
+      <option value="家居物業">家居物業</option>
+      <option value="交通出行">交通出行</option>
+      <option value="休閒娛樂">休閒娛樂</option>
+      <option value="餐飲食品">餐飲食品</option>
+      <option value="其他">其他</option>
+    </select>
+  </form>
+
+  <div class="total-div">
+    <div id="total-text"><span>總金額:</span></div>
+    <div id="totalAmount">{{totalAmount}}</div>
+  </div>
+
+  <table>
+    {{#each records}}
+    <tr>
+      <td id="icon">
+        <i class="{{this.icon}}"></i>
+      </td>
+      <td id="name">{{this.name}}
+        <p id="date">{{this.date}}</p>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td id="amount">{{this.amount}}</td>
+      <td></td>
+      <td class="button-td">
+        <a href="/records/edit/{{this._id}}" class="btn btn-primary" id="edit-button">修改</a>
+      </td>
+      <td class="button-td">
+        <form action="/records/delete/{{this._id}}?_method=DELETE" method="POST" class="ms-3">
+          <button type="submit" class="btn btn-primary" id="delete">刪除</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+    <tr>
+      <td></td>
+      <td></td>
+      <td colspan="4">
+        <a class="btn btn-primary mt-5" href="/records/new" id="add-button">新增支出</a>
+      </td>
+    </tr>
+  </table>
+</div>

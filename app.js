@@ -73,6 +73,65 @@ app.get('/', async (req, res) => {
   }
 })
 
+
+// route: POST/sort
+// app.post('/records/sort', async (req, res) => {
+//   const query = req.query.sort
+//   console.log(query)
+//   const sort = req.body.sort
+//   // console.log(sort)
+//   try{
+//     const categoryData = await CategoryModel.findOne({ name: sort}).lean()
+//     const records = await RecordModel.find( {categoryId: categoryData._id} ).populate('categoryId').lean()
+//     // console.log(records)r檢查用
+//     const data = records.map( record => {
+//       const {_id, name, date, amount,} = record
+//       const formatDate = moment.utc(date).format('YYYY/MM/DD')
+//       return {
+//         _id,
+//         name,
+//         date: formatDate,
+//         amount,
+//         icon: record.categoryId.icon
+//       }
+//     })
+//     res.render('sort', {records: data, sort})
+
+//   }catch(err){
+//     console.log(err)
+//   }
+// })
+
+// route: GET/sort
+app.get('/records/sort', async(req, res) => {
+  const sort = req.query.sort
+  try{
+    const sort = req.query.sort
+    console.log(sort)
+    // res.render('sort')
+    const categoryDate = await CategoryModel.findOne({ name: sort}).lean()
+    const records = await RecordModel.find({ categoryId: categoryDate._id}).populate('categoryId').lean()
+    const data = records.map(record => {
+      const {_id, name, date, amount} = record
+      const formatDate = moment.utc(date).format('YYYY/MM/DD')
+      return {
+        _id,
+        name,
+        date: formatDate,
+        amount,
+        icon: record.categoryId.icon
+      }
+    })
+    const totalAmount = data.reduce(((accumulator, item) => {
+      return accumulator + item.amount
+    }),0 )
+    res.render('sort', {records: data, sort, totalAmount})
+  }catch(err){
+    console.log(err)
+  }
+})
+
+
 // route: GET/new
 app.get('/records/new',(req, res) => {
   res.render('new')
@@ -161,3 +220,30 @@ app.listen( port, () => {
 //   month: '2-digit',
 //   day: '2-digit'
 // })
+
+// route: GET/sort
+// 沒用switch的方法
+  //  try{
+  //   const sort = req.query.sort
+  //   console.log(sort)
+  //   // res.render('sort')
+  //   const categoryDate = await CategoryModel.findOne({ name: sort}).lean()
+  //   const records = await RecordModel.find({ categoryId: categoryDate._id}).populate('categoryId').lean()
+  //   const data = records.map(record => {
+  //     const {_id, name, date, amount} = record
+  //     const formatDate = moment.utc(date).format('YYYY/MM/DD')
+  //     return {
+  //       _id,
+  //       name,
+  //       date: formatDate,
+  //       amount,
+  //       icon: record.categoryId.icon
+  //     }
+  //   })
+  //   const totalAmount = data.reduce(((accumulator, item) => {
+  //     return accumulator + item.amount
+  //   }),0 )
+  //   res.render('sort', {records: data, sort, totalAmount})
+  // }catch(err){
+  //   console.log(err)
+  // }
