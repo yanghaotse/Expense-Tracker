@@ -1,14 +1,16 @@
 const express = require('express')
 const router = express.Router()
-const userModel = require('../../models/user')
+const UserModel = require('../../models/user')
+const passport = require('passport')
 
 router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.post('/login', (req,res) => {
-  
-})
+router.post('/login', passport.authenticate('local', {
+  successRedirect:'/',
+  failureRedirect: 'users/login'
+}))
 
 router.get('/register', (req,res) => {
   res.render('register')
@@ -17,12 +19,12 @@ router.get('/register', (req,res) => {
 router.post('/register', async(req,res) => {
   const {name, email, password, confirmPassword} = req.body
   try{
-    const users = await userModel.findOne({ email }).lean()
+    const users = await UserModel.findOne({ email }).lean()
     if(users){
       console.log('User already exist.')
       res.render('register', {name, email, password, confirmPassword})
     }else{
-       await userModel.create({
+       await UserModel.create({
         name,
         email,
         password,
