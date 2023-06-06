@@ -29,11 +29,21 @@ app.use(session({
 // body-parser
 app.use(express.urlencoded({extended: true}))
 
-
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
 
 usePassport(app)
+
+// middleware
+app.use((req, res, next) => {
+  // 把 req.isAuthenticated() 回傳的布林值，交接給 res 使用
+  res.locals.isAuthenticated = req.isAuthenticated()
+  // 把使用者資料交接給 res 使用
+  res.locals.user = req.user
+  next()
+})
+
+
 app.use(routes)
 
 
