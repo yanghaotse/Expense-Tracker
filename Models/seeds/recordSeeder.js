@@ -1,22 +1,13 @@
-const mongoose = require('mongoose')
 const UserModel = require('../user')
 const RecordModel = require('../record')
 const CategoryModel = require('../category')
 const bcrypt = require('bcryptjs')
-const {SEED_USER, SEED_RECORD, SEED_CATEGORY} = require('../datas/seedsData')
-
+const {SEED_USER, SEED_RECORD, SEED_CATEGORY} = require('../data/seedsData')
+const db = require('../../config/mongoose')
 
 if(process.env.NODE_ENV !== 'production'){
   require('dotenv').config()
 }
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true,  useUnifiedTopology: true})
-const db = mongoose.connection
-
-
-
-db.on('error', () => {
-  console.log(error)
-})
 
 
 db.once('open', async () => {

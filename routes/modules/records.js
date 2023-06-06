@@ -12,7 +12,7 @@ router.get('/sort', async(req, res) => {
   try{
     const sort = req.query.sort
     // console.log(sort)
-    
+
     const categoryDate = await CategoryModel.findOne({ name: sort}).lean()
     const records = await RecordModel.find({ categoryId: categoryDate._id}).populate('categoryId').lean()
     const data = records.map(record => {
@@ -110,3 +110,12 @@ router.delete('/delete/:_id', async(req, res) => {
 })
 
 module.exports = router
+
+// 問題紀錄
+// 在首頁路由中 轉換date格式為:" YYYY/MM/DD"，原本格式: "2019-04-22T16:00:00.000Z"
+// 使用javascript語法，問題: 顯示的日期比資料日期多一天
+// const formatDate = new Date(date).toLocaleDateString('zh-TW', {
+//   year: 'numeric',
+//   month: '2-digit',
+//   day: '2-digit'
+// })
