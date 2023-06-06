@@ -1,4 +1,5 @@
 const express = require('express')
+const session = require('express-session')
 const exphbs = require('express-handlebars')
 
 const RecordModel = require('./models/record')
@@ -15,6 +16,13 @@ const port = 3000
 //express-handlebars
 app.engine('hbs', exphbs({ defaultLayout : 'main', extname: '.hbs'}))
 app.set('view engine', 'hbs') 
+
+// express-session
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 // body-parser
 app.use(express.urlencoded({extended: true}))
