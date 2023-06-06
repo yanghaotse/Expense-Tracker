@@ -11,9 +11,6 @@ router.get('/', async (req, res) => {
       // console.log(date) //檢查用
       //output:
       // 2019-04-22T16:00:00.000Z
-      // 2019-04-22T16:00:00.000Z
-      // 2019-04-22T16:00:00.000Z
-      // 2015-03-31T16:00:00.000Z
       const formatDate = moment.utc(date).format('YYYY/MM/DD')
       return{
         _id,
