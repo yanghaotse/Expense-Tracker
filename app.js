@@ -7,7 +7,7 @@ const moment = require('moment')
 const RecordModel = require('./models/record')
 const CategoryModel = require('./models/category')
 const usePassport = require('./config/passport')
-// const {authenticator} = require('./middleware/auth')
+
 const routes = require('./routes')
 require('./config/mongoose') // mongoDB
 
@@ -28,8 +28,6 @@ app.use(session({
 
 // body-parser
 app.use(express.urlencoded({extended: true}))
-
-//middleware
 
 
 app.use(express.static('public'))
