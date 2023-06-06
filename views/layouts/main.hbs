@@ -30,7 +30,8 @@
     integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
     crossorigin="anonymous"></script>
 
-    {{!-- "新增支出"、"編輯支出"表單驗證 --}}
+    {{!-- "新增支出"、"編輯支出" 監聽 --}}
+    {{!-- 表單驗證功能 --}}
     <script>
       const form = document.querySelector('.need-validate-form')
       form.addEventListener('submit', function onFormSubmit(event){
@@ -41,7 +42,8 @@
         form.classList.add('was-validated')
       })
     </script>
-    {{!-- "刪除"監聽 --}}
+    {{!-- "刪除"監聽  --}}
+    {{!-- 在按下刪除後提醒使用者 --}}
     <script>
       const deleteButtons = document.querySelectorAll('#delete')
       deleteButtons.forEach( deleteButton => {
@@ -54,7 +56,8 @@
         })
       })
     </script>
-    {{!-- 監聽 --}}
+    {{!-- "篩選表單"監聽 --}}
+    {{!-- 讓表單在sort.hbs頁面可以重複操作篩選功能 --}}
     <script>
       const sortForm = document.querySelector("#sort-form");
       const select = document.querySelector("#sort-select");
