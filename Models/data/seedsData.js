@@ -6,7 +6,7 @@ const SEED_USER =[{
   {
    name: '小新',
    email:'example2@gmail.com',
-   password:'12345678'
+   password:'87654321'
   }
 ]
 

@@ -4,8 +4,14 @@ const RecordModel = require('../../models/record')
 const moment = require('moment')
 
 router.get('/', async (req, res) => {
+  const userId = req.user._id
+  console.log('req.user.name:',req.user.name)
+  // output: req.user.name: ht
+  console.log('res.locals.user:', res.locals.user.name)
+  // output: res.locals.user: ht
   try{
-    const records = await RecordModel.find().populate('categoryId').lean()
+    // const user = req.user.toObject()
+    const records = await RecordModel.find({userId}).populate('categoryId').lean()
     const data = records.map(record => {
       const {_id, name, date, amount} = record
       // console.log(date) //檢查用
@@ -28,7 +34,7 @@ router.get('/', async (req, res) => {
     }), 0)
     // console.log(totalAmount) 檢查用
     
-    res.render('index', { records: data , totalAmount})
+    res.render('index', {records: data , totalAmount})
   }catch(err){
     console.log(err)
   }

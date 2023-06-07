@@ -29,12 +29,16 @@ module.exports = app => {
     done(null, user.id)
   })
   passport.deserializeUser(async (id, done) => {
-    try{
-      const user = await UserModel.findById({ _id : id})
-      return done(null, user)
-    }catch(err){
-      done(err, null)
-    }
+    await UserModel.findById(id)
+      .lean()
+      .then( user => done(null, user))
+      .catch(err => done(err, null))
+    // try{
+    //   const user = await UserModel.findById(id)
+    //   done(null, user)
+    // }catch(err){
+    //   done(err, null)
+    // }
   })
-  // 
+  
 }

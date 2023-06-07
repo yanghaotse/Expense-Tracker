@@ -8,13 +8,13 @@ const router = express.Router()
 
 
 router.get('/sort', async(req, res) => {
-  const sort = req.query.sort
+  const userId = req.user._id
   try{
     const sort = req.query.sort
     // console.log(sort)
 
     const categoryDate = await CategoryModel.findOne({ name: sort}).lean()
-    const records = await RecordModel.find({ categoryId: categoryDate._id}).populate('categoryId').lean()
+    const records = await RecordModel.find({ userId, categoryId: categoryDate._id}).populate('categoryId').lean()
     const data = records.map(record => {
       const {_id, name, date, amount} = record
       const formatDate = moment.utc(date).format('YYYY/MM/DD')
@@ -43,10 +43,11 @@ router.get('/new',(req, res) => {
 
 // route: GET/edit
 router.get('/edit/:_id',async (req, res) => {
+  const userId = req.user._id
   const _id = req.params._id
   // console.log(id) //檢查用
   try{
-    const record = await RecordModel.findOne({ _id }).populate('categoryId').lean()
+    const record = await RecordModel.findOne({ _id, userId }).populate('categoryId').lean()
     const formatDate = moment.utc(record.date).format('YYYY-MM-DD') // 若設定為YYYY/MM/DD也會無法轉換
     // console.log(record.date, formatDate) 檢查用
 
@@ -60,6 +61,7 @@ router.get('/edit/:_id',async (req, res) => {
 
 // route: POST/edit
 router.put('/edit/:_id', async(req, res) => {
+  const userId = req.user._id
   const _id = req.params._id
   const  {name, date, category, amount} = req.body
   try{
@@ -70,10 +72,11 @@ router.put('/edit/:_id', async(req, res) => {
       name,
       date,
       amount,
+      userId,
       categoryId: categoryData._id
     }
     
-    await RecordModel.updateOne({ _id }, { $set: record})
+    await RecordModel.updateOne({ _id, userId }, { $set: record})
     res.redirect('/')
   }catch(err){
     console.log(err)
@@ -82,6 +85,7 @@ router.put('/edit/:_id', async(req, res) => {
 
 // route: POST/new
 router.post('/new', async(req, res) => {
+  const userId = req.user._id
   const {name, date, category, amount} = req.body
   // console.log(name,date, category, amount) //檢查用
   const categoryData = await CategoryModel.findOne( {name: category}).lean()
@@ -90,6 +94,7 @@ router.post('/new', async(req, res) => {
       name,
       date,
       amount,
+      userId,
       categoryId: categoryData._id
     })
     res.redirect('/')
@@ -100,9 +105,10 @@ router.post('/new', async(req, res) => {
 
 // route: POST/delete
 router.delete('/delete/:_id', async(req, res) => {
+  const userId = req.user._id
   const _id = req.params._id
   try{
-    await RecordModel.findByIdAndDelete(_id)
+    await RecordModel.findByIdAndDelete({_id, userId})
     res.redirect('/')
   }catch(err){
     console.log(err)
