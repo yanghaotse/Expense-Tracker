@@ -6,7 +6,7 @@ const moment = require('moment')
 
 const router = express.Router()
 
-
+// route: GET/sort
 router.get('/sort', async(req, res) => {
   const userId = req.user._id
   try{
@@ -114,6 +114,7 @@ router.delete('/delete/:_id', async(req, res) => {
     console.log(err)
   }
 })
+
 
 module.exports = router
 

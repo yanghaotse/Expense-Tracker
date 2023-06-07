@@ -33,6 +33,7 @@ module.exports = app => {
       .lean()
       .then( user => done(null, user))
       .catch(err => done(err, null))
+      // 這邊用try/catch方式無法順利將req.user資料傳給main.hbs樣版。解決方式: 使用`.toObject()`加入路由中，將`req.user`轉換格式後就可以顯示(還查不出原因)
     // try{
     //   const user = await UserModel.findById(id)
     //   done(null, user)

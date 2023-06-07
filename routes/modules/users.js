@@ -18,6 +18,23 @@ router.get('/register', (req,res) => {
 
 router.post('/register', async(req,res) => {
   const {name, email, password, confirmPassword} = req.body
+  const errors = []
+  if(!name || !email || !password || !confirmPassword){
+    errors.push({message: '所有欄位都是必填!'})
+  } 
+  if(password !== confirmPassword){
+    errors.push({message: '密碼與確認密碼不符!'})
+  }
+  if(errors.length){
+    return res.render('register', {
+      errors,
+      name,
+      email,
+      password,
+      confirmPassword
+    })
+  }
+
   try{
     const users = await UserModel.findOne({ email }).lean()
     if(users){
@@ -39,6 +56,7 @@ router.post('/register', async(req,res) => {
 
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', '你已成功登出。')
   res.redirect('/users/login')
 })
 
