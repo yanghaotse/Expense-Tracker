@@ -12,6 +12,7 @@ if(process.env.NODE_ENV !== 'production'){
 
 db.once('open', async () => {
   try {
+    // 建立使用者資料
     await Promise.all(
       SEED_USER.map(async (seedUser, seedUser_index) => {
         const salt = await bcrypt.genSalt(10)
@@ -23,11 +24,12 @@ db.once('open', async () => {
         });
         console.log('User created')
         const seedCategory = await CategoryModel.find().lean()
+        // 建立Records資料
         await Promise.all(
           SEED_RECORD.slice( 4 * seedUser_index, 4 + seedUser_index).map(async (seedRecord) => {
             // 用slice()切割資料分別給 廣志/小新
             const {name , date, amount} = seedRecord
-            const referenceCategory = seedCategory.find(data => data.name === seedRecord.category)
+            const referenceCategory = await seedCategory.find(data => data.name === seedRecord.category)
             seedRecord.userId = user._id;
             seedRecord.categoryId = referenceCategory._id;
             await RecordModel.create({
