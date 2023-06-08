@@ -30,11 +30,11 @@
         <td id="amount">{{this.amount}}</td>
         <td></td>
         <td class="button-td">
-          <a href="/records/edit/{{this._id}}" class="btn btn-primary" id="edit-button">修改</a>
+          <a href="/records/edit/{{this._id}}" class="btn btn-success" id="edit-button">修改</a>
         </td>
         <td class="button-td">
           <form action="/records/delete/{{this._id}}?_method=DELETE" method="POST" class="ms-3">
-            <button type="submit" class="btn btn-primary" id="delete">刪除</button>
+            <button type="submit" class="btn btn-danger" id="delete">刪除</button>
           </form>
         </td>
       </tr>

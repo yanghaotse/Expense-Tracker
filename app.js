@@ -13,7 +13,7 @@ const routes = require('./routes')
 require('./config/mongoose') // mongoDB
 
 const app = express()
-const port = 3000
+
 
 
 //express-handlebars
@@ -22,7 +22,7 @@ app.set('view engine', 'hbs')
 
 // express-session
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
@@ -52,8 +52,8 @@ app.use(routes)
 
 
 
-app.listen( port, () => {
-  console.log(`App is running on http://localhost:${port}`)
+app.listen( process.env.PORT, () => {
+  console.log(`App is running on http://localhost:${process.env.PORT}`)
 })
 
 

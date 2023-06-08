@@ -1,2 +1,8 @@
-node_modules
 .env
+#npm
+node_modules
+*.log
+*.gz
+#windows
+Thumbs.db
+ehthumbs.db
