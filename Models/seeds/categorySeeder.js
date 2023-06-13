@@ -18,7 +18,7 @@ db.once('open', async () => {
     console.log(err);
   }
 });
-// 也可以這樣寫，但較麻煩
+// 也可以這樣寫，但不用這麼麻煩
 // db.once('open', async() => {
 //   try {
 //     await Promise.all(

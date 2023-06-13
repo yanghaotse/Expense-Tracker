@@ -32,19 +32,33 @@ module.exports = app => {
     clientSecret: process.env.FACEBOOK_SECRET,
     callbackURL: process.env.FACEBOOK_CALLBACK,
     profileFields: ['email', 'displayName'],
-  }, (accessToken, refreshToken, profile, done) => {
-    console.log(profile)
+  }, async (accessToken, refreshToken, profile, done) => {
+    // console.log(profile._json) //測試用
+    const {email, name} = await profile._json
+    try{
+      // 判斷使用者是否已存在
+      const existUser = await UserModel.findOne({ email }).lean()
+      if(existUser) return done(null, existUser)
+      // 若沒有則新增
+      const randomPassword = Math.random().toString(36).slice(-8)
+      const salt = await bcrypt.genSalt(10)
+      const hash = await bcrypt.hash( randomPassword, salt)
+      const user = await UserModel.create({
+        name,
+        email,
+        password: hash
+      })
+      done(null, user)
+    }catch(err){
+      done(null, false)
+    }
+
   }))
   // 設定序列化與反序列化
   passport.serializeUser((user, done) => {
     done(null, user.id)
   })
   passport.deserializeUser(async (id, done) => {
-    // await UserModel.findById(id)
-    //   .lean()
-    //   .then( user => done(null, user))
-    //   .catch(err => done(err, null))
-      // 這邊用try/catch方式無法順利將req.user資料傳給main.hbs樣版。*解決方式: 使用`.toObject()`加入路由中，將`req.user`轉換格式後就可以顯示(還查不出原因) *已找出原因: 沒有加lean()
     try{
       const user = await UserModel.findById(id).lean()
       done(null, user)

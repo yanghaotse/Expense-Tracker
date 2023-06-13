@@ -1,3 +1,4 @@
+// 使用者種子資料
 const SEED_USER =[{
   name: '廣志',
   email: 'example1@gmail.com',
@@ -9,7 +10,7 @@ const SEED_USER =[{
    password:'87654321'
   }
 ]
-
+// 支出種子資料
 const SEED_RECORD=[
   {
     name: '午餐',
@@ -42,7 +43,7 @@ const SEED_RECORD=[
     category: '休閒娛樂'
   }
 ]
-
+// 類別種子資料
 const SEED_CATEGORY = [
   {
     name: "家居物業",

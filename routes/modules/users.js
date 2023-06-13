@@ -40,17 +40,16 @@ router.post('/register', async(req,res) => {
   try{
     const users = await UserModel.findOne({ email }).lean()
     if(users){
-      console.log('User already exist.')
-      res.render('register', {name, email, password, confirmPassword})
-    }else{
-      const salt = await bcrypt.genSalt(10)
-      const hash = await bcrypt.hash(password, salt)
-       await UserModel.create({
-        name,
-        email,
-        password: hash
-      })
+      errors.push({ message: '這個Email已經註冊過了。'})
+      res.render('register', {errors, name, email, password, confirmPassword})
     }
+    const salt = await bcrypt.genSalt(10)
+    const hash = await bcrypt.hash(password, salt)
+      await UserModel.create({
+      name,
+      email,
+      password: hash
+    })
     res.redirect('/')
   }catch(err){
     console.log(err)

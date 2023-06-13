@@ -29,6 +29,7 @@ db.once('open', async () => {
           SEED_RECORD.slice( 4 * seedUser_index, 4 + seedUser_index).map(async (seedRecord) => {
             // 用slice()切割資料分別給 廣志/小新
             const {name , date, amount} = seedRecord
+            // 建立種子資料"類別"與"使用者"關聯
             const referenceCategory = await seedCategory.find(data => data.name === seedRecord.category)
             seedRecord.userId = user._id;
             seedRecord.categoryId = referenceCategory._id;
