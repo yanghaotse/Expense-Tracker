@@ -5,11 +5,8 @@ const moment = require('moment')
 
 router.get('/', async (req, res) => {
   const userId = req.user._id
-  // 無法將req.user.name傳至main.hbs。解決方式: 將原本passport.js中設定序列化與序列化部分，從try/catch改為Promise=就可執行
-  // console.log('req.user.name:',req.user.name)
-  // output: req.user.name: ht
-  // console.log('res.locals.user:', res.locals.user.name)
-  // output: res.locals.user: ht
+  // 無法將req.user.name傳至main.hbs。解決方式: 將原本passport.js中設定序列化與序列化部分，從try/catch改為Promise就可執行
+  // *找出原因是: passport.js (序列化與反序列化)取出的資料沒有使用.lean()
   try{
     // const user = req.user.toObject()
     const records = await RecordModel.find({userId}).populate('categoryId').lean()

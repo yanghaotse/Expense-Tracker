@@ -40,17 +40,16 @@ module.exports = app => {
     done(null, user.id)
   })
   passport.deserializeUser(async (id, done) => {
-    await UserModel.findById(id)
-      .lean()
-      .then( user => done(null, user))
-      .catch(err => done(err, null))
-      // 這邊用try/catch方式無法順利將req.user資料傳給main.hbs樣版。解決方式: 使用`.toObject()`加入路由中，將`req.user`轉換格式後就可以顯示(還查不出原因)
-    // try{
-    //   const user = await UserModel.findById(id)
-    //   done(null, user)
-    // }catch(err){
-    //   done(err, null)
-    // }
+    // await UserModel.findById(id)
+    //   .lean()
+    //   .then( user => done(null, user))
+    //   .catch(err => done(err, null))
+      // 這邊用try/catch方式無法順利將req.user資料傳給main.hbs樣版。*解決方式: 使用`.toObject()`加入路由中，將`req.user`轉換格式後就可以顯示(還查不出原因) *已找出原因: 沒有加lean()
+    try{
+      const user = await UserModel.findById(id).lean()
+      done(null, user)
+    }catch(err){
+      done(err, null)
+    }
   })
-  
 }

@@ -66,7 +66,7 @@ router.put('/edit/:_id', async(req, res) => {
   const  {name, date, category, amount} = req.body
   try{
     // const record = await RecordModel.findOne({ _id }).lean()
-    // 抓取RecordModel資料若後面有家lean()，之後用.save()儲存資料時會因為資料格式問題無法儲存，故改用.updateOne
+    // 抓取RecordModel資料若後面有家lean()，之後用.save()儲存資料時似乎會因為資料格式問題無法儲存，故改用.updateOne。 *因取出資料格式轉換為js格式，儲存時須給mongoDB格式?
     const categoryData = await CategoryModel.findOne({ name : category}).lean()
     const record = {
       name,
