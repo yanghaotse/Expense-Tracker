@@ -3,7 +3,6 @@ const LocalStrategy = require('passport-local').Strategy
 const FacebookStrategy = require('passport-facebook').Strategy
 const UserModel = require('../models/user')
 const bcrypt= require('bcryptjs')
-
 module.exports = app => {
   // 初始化passport模組
   app.use(passport.initialize())

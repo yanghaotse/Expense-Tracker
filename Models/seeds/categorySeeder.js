@@ -1,5 +1,5 @@
 const CategoryModel = require('../category')
-const {SEED_CATEGORY} = require('../data/seedsData')
+const {SEED_CATEGORY} = require('../seedsData')
 const db = require('../../config/mongoose')
 
 if(process.env.NODE_ENV !== 'production'){

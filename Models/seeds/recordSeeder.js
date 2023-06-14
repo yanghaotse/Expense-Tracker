@@ -2,13 +2,12 @@ const UserModel = require('../user')
 const RecordModel = require('../record')
 const CategoryModel = require('../category')
 const bcrypt = require('bcryptjs')
-const {SEED_USER, SEED_RECORD, SEED_CATEGORY} = require('../data/seedsData')
+const {SEED_USER, SEED_RECORD} = require('../seedsData')
 const db = require('../../config/mongoose')
 
 if(process.env.NODE_ENV !== 'production'){
   require('dotenv').config()
 }
-
 
 db.once('open', async () => {
   try {
