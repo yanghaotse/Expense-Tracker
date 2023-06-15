@@ -11,32 +11,32 @@ module.exports = app => {
   // 設定本地登入策略
   passport.use(new LocalStrategy({ usernameField: 'email'}, async(email, password, done) => {
     // { usernameField: 'email'} --> 將原本預設驗證項目從`username`改為`email`
-    // UserModel.findOne({ email }) //為甚麼這邊不用.lean()?
-    // .then(user => {
-    //   if(!user){
-    //     return done(null, false, { type: 'warning_msg', message: 'That email is mot registered!'})
-    //   }
-    //   return bcrypt.compare(password, user.password).then( isMatch => {
-    //     if(!isMatch){
-    //       return done(null, false, { type: 'warning_msg', message: 'Email or Password incorrect.'})
-    //     }
-    //     return done(null, user)
-    //   })
-    // })
-    // .catch (err => done(err, false))
-    try{
-      const user = await UserModel.findOne({ email }).lean()
+    UserModel.findOne({ email }) //為甚麼這邊不用.lean()?
+    .then(user => {
       if(!user){
         return done(null, false, { type: 'warning_msg', message: 'That email is mot registered!'})
       }
-      const comparePassword = await bcrypt.compare(password, user.password)
-      if( !comparePassword){
-        return done(null, false, { type: 'warning_msg', message: 'Email or Password incorrect.'})
-      }
-      return done(null, user)
-    }catch(err){
-      console.log(err)
-    }
+      return bcrypt.compare(password, user.password).then( isMatch => {
+        if(!isMatch){
+          return done(null, false, { type: 'warning_msg', message: 'Email or Password incorrect.'})
+        }
+        return done(null, user)
+      })
+    })
+    .catch (err => done(err, false))
+    // try{
+    //   const user = await UserModel.findOne({ email }).lean()
+    //   if(!user){
+    //     return done(null, false, { type: 'warning_msg', message: 'That email is mot registered!'})
+    //   }
+    //   const comparePassword = await bcrypt.compare(password, user.password)
+    //   if( !comparePassword){
+    //     return done(null, false, { type: 'warning_msg', message: 'Email or Password incorrect.'})
+    //   }
+    //   return done(null, user)
+    // }catch(err){
+    //   console.log(err)
+    // }
   }))
   // 設定facebook登入策略
   passport.use(new FacebookStrategy({
