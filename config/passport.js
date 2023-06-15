@@ -12,7 +12,7 @@ module.exports = app => {
   passport.use(new LocalStrategy({ usernameField: 'email'}, async (email, password, done) => {
     // { usernameField: 'email'} --> 將原本預設驗證項目從`username`改為`email`
     try{
-      const user = await UserModel.findOne({ email })
+      const user = await UserModel.findOne({ email }).lean()
       if(!user){
         return done(null, false, { message: 'This email is not registered!'})
       }
