@@ -14,7 +14,7 @@ module.exports = app => {
     UserModel.findOne({ email }) 
     .then(user => {
       if(!user){
-        return done(null, false, { type: 'warning_msg', message: 'That email is mot registered!'})
+        return done(null, false, { type: 'warning_msg', message: 'That email is not registered!'})
       }
       return bcrypt.compare(password, user.password).then( isMatch => {
         if(!isMatch){
