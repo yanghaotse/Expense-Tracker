@@ -1,6 +1,6 @@
 const express = require('express')
-const RecordModel = require('../../models/record')
-const CategoryModel = require('../../models/category')
+const RecordModel = require('../../Models/record')
+const CategoryModel = require('../../Models/category')
 const moment = require('moment')
 
 const router = express.Router()

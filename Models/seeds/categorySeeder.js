@@ -22,7 +22,7 @@ db.once('open', async () => {
 // db.once('open', async() => {
 //   try {
 //     await Promise.all(
-//       SEED_CATEGORY.map(async seedCategory => {
+//       SEED_CATEGORY.map(async seedCategory => {Model
 //       await CategoryModel.create(seedCategory)
 //       })
 //     )

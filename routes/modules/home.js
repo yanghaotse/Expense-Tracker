@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const RecordModel = require('../../models/record')
+const RecordModel = require('../../Models/record')
 const moment = require('moment')
 
 router.get('/', async (req, res) => {
