@@ -11,7 +11,7 @@ module.exports = app => {
   // 設定本地登入策略
   passport.use(new LocalStrategy({ usernameField: 'email'}, async(email, password, done) => {
     // { usernameField: 'email'} --> 將原本預設驗證項目從`username`改為`email`
-    UserModel.findOne({ email }) //為甚麼這邊不用.lean()?
+    UserModel.findOne({ email }) 
     .then(user => {
       if(!user){
         return done(null, false, { type: 'warning_msg', message: 'That email is mot registered!'})
