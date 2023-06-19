@@ -44,26 +44,26 @@ module.exports = app => {
     clientSecret: process.env.FACEBOOK_SECRET,
     callbackURL: process.env.FACEBOOK_CALLBACK,
     profileFields: ['email', 'displayName'],
-  }, async (accessToken, refreshToken, profile, done) => {
+  }, (accessToken, refreshToken, profile, done) => {
     // console.log(profile._json) //測試用
-    const {email, name} = await profile._json
-    try{
-      // 判斷使用者是否已存在
-      const existUser = await UserModel.findOne({ email }).lean()
-      if(existUser) return done(null, existUser)
-      // 若沒有則新增
-      const randomPassword = Math.random().toString(36).slice(-8)
-      const salt = await bcrypt.genSalt(10)
-      const hash = await bcrypt.hash( randomPassword, salt)
-      const user = await UserModel.create({
-        name,
-        email,
-        password: hash
+    const {email, name} = profile._json
+    UserModel.find({ email })
+      .then( user => {
+        if(user) return done(null, user)
+        const randomPassword = Math.random().toString(36).slice(-8)
+        bcrypt
+          .genSalt(10)
+          .then( salt => bcrypt.hash( randomPassword, salt))
+          .then( hash => UserModel.create({
+            name,
+            email,
+            password: hash
+          }))
+          .then(user => done(null, user))
+          .catch(err => done(err, false))
+
       })
-      done(null, user)
-    }catch(err){
-      done(null, false)
-    }
+
 
   }))
   // 設定序列化與反序列化
@@ -79,3 +79,21 @@ module.exports = app => {
     }
   })
 }
+// fb 登入策略:try/catch
+    // try{
+    // 判斷使用者是否已存在
+      // const existUser = await UserModel.findOne({ email })
+      // if(existUser) return done(null, existUser)
+      // // 若沒有則新增
+      // const randomPassword = Math.random().toString(36).slice(-8)
+      // const salt = await bcrypt.genSalt(10)
+      // const hash = await bcrypt.hash( randomPassword, salt)
+      // const user = await UserModel.create({
+      //   name,
+      //   email,
+      //   password: hash
+      // })
+      // done(null, user)
+    // }catch(err){
+    //   done(null, false)
+    // }
