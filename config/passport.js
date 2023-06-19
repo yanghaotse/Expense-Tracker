@@ -47,7 +47,7 @@ module.exports = app => {
   }, (accessToken, refreshToken, profile, done) => {
     // console.log(profile._json) //測試用
     const {email, name} = profile._json
-    UserModel.find({ email })
+    UserModel.findOne({ email })
       .then( user => {
         if(user) return done(null, user)
         const randomPassword = Math.random().toString(36).slice(-8)
