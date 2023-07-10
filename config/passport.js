@@ -46,7 +46,7 @@ module.exports = app => {
     // profileFields: ['email']
     profileFields: ['email', 'displayName']
   }, (accessToken, refreshToken, profile, done) => {
-    // console.log(profile._json) //測試用
+    console.log(profile._json) //測試用
     const {email, name} = profile._json
     UserModel.findOne({ email })
       .then( user => {
