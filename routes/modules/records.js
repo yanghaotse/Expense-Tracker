@@ -3,9 +3,10 @@ const RecordModel = require('../../Models/record')
 const CategoryModel = require('../../Models/category')
 const moment = require('moment')
 
+const {SEED_CATEGORY} = require('../../Models/seedsData')
 const router = express.Router()
 
-// route: GET/sort
+// 篩選頁面
 router.get('/sort', async(req, res) => {
   const userId = req.user._id
   try{
@@ -35,12 +36,22 @@ router.get('/sort', async(req, res) => {
 })
 
 
-// route: GET/new
-router.get('/new',(req, res) => {
+// 新增頁面
+router.get('/new',async(req, res) => {
+  // 先判斷資料庫中是否已經有"類別"資料(未載入種子資料前，新用戶會無法創建record)
+  try{
+    const categoryModel = await CategoryModel.find().lean()
+    if(categoryModel.length === 0){
+      await CategoryModel.create(SEED_CATEGORY)
+      console.log('所有類別創建完成')
+    }
+  }catch(err){
+    console.log(err)
+  }
   res.render('new')
 })
 
-// route: GET/edit
+// 編輯頁面
 router.get('/edit/:_id',async (req, res) => {
   const userId = req.user._id
   const _id = req.params._id
@@ -58,7 +69,7 @@ router.get('/edit/:_id',async (req, res) => {
 })
 
 
-// route: POST/edit
+// 修改送出
 router.put('/edit/:_id', async(req, res) => {
   const userId = req.user._id
   const _id = req.params._id
@@ -82,7 +93,7 @@ router.put('/edit/:_id', async(req, res) => {
   }
 })
 
-// route: POST/new
+// 新增送出
 router.post('/new', async(req, res) => {
   const userId = req.user._id
   console.log(req.user)
@@ -103,7 +114,7 @@ router.post('/new', async(req, res) => {
   }
 })
 
-// route: POST/delete
+// 刪除送出
 router.delete('/delete/:_id', async(req, res) => {
   const userId = req.user._id
   const _id = req.params._id
