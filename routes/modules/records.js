@@ -85,6 +85,7 @@ router.put('/edit/:_id', async(req, res) => {
 // route: POST/new
 router.post('/new', async(req, res) => {
   const userId = req.user._id
+  console.log(req.user)
   const {name, date, category, amount} = req.body
   // console.log(name,date, category, amount) //檢查用
   const categoryData = await CategoryModel.findOne( {name: category}).lean()
